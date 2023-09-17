@@ -1,12 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Offside&family=Orbitron&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
 
 body {
     font-family: 'Offside', sans-serif;
-    color: #AEC2D3; 
-    background: #507B9E; 
+    color: #A3CDFC; 
+    background: #5696CB;  
+    margin: 0px;
 }
 
-#main-circ {
-    border-radius: 50%;
+h1 {
+    font-size: 60px;
+}
+
+p, ul, li {
+    font-family: 'Lora';
+    font-size: 32px;
+}
+
+#navbar {
+    position: sticky;
+    background-color: #5E9FD5;
+    height: 80px;
+    width: 100%;
+}
+
+#burger {
+    right: 40px;
+}
+
+#welcome {
+    margin-top: 440px;
+}
+
+.item-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-container {
+    margin-left: 100px;
+}
+
+.btn {
+    font-family: 'Lora';
+    border: 0;
+    border-radius: 5%;
+    font-size: 24px;
+}
+
+.h-60 {
+    height: 60px;
+}
+
+.w-60 {
+    width: 60px;
+}
+
+.w-300 {
+    width: 300px;
+}
+
+.w-380 {
+    width: 380px;
+}
+
+.w-120 {
+    width: 120px;
+}
+
+.contrast {
+    color: #FFCC86; 
+}
+
+.contrast-back {
+    background-color: #FFCC86; 
+}
+
+.main{
+    color: #A3CDFC;  
+}
+
+.main-back {
+    background-color: #5696CB; 
+}
+
+.main-text {
+    color: #5696CB;  
 }
