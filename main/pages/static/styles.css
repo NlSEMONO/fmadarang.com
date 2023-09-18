@@ -10,48 +10,55 @@ body {
 }
 
 h1 {
-    font-size: 72px;
+    font-size: 48px;
     margin: 0px;
 }
 
 p, ul, li {
     font-family: 'Lora';
-    font-size: 38.4px;
-}
-
-@media only screen and (max-width: 720px) {
-    .text-container {
-        margin-left: 100px;
-    }
+    font-size: 24px;
 }
 
 #navbar {
     position: sticky;
     top: 0px;
     background-color: #5E9FD5;
-    height: 120px;
-    width: 100%;
+    height: 90px;
 }
 
 #navbar-items {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 120px;
-    width: 95.925%;
+    height: 90px;
 }
 
 #triangle {
-    margin: 0px;
+    display:none;
 }
 
 #welcome {
     display: flex;
     flex-direction: column;
-    height: 1600px;
+    min-height: 500px;
+    height: 90%;
     justify-content: center;
+}
+
+#logo-container {
+    width: 225px;
+}
+
+#website-logo, #burger {
+    width: 60px;
+    height: 60px;
+}
+
+.logo {
+    height: 45px;
+    width: 45px;
 }
 
 .item-container {
@@ -60,7 +67,7 @@ p, ul, li {
 }
 
 .text-container {
-    margin-left: 200px;
+    margin-left: 10%;
 }
 
 .general-container {
@@ -69,10 +76,20 @@ p, ul, li {
 
 .btn {
     font-family: 'Lora';
-    border: 0;
+    border: 1;
+    border-style:solid;
     border-radius: 5%;
-    font-size: 28.8px;
-    filter: drop-shadow(0px 7.995260715484619px 7.995260715484619px rgba(0, 0, 0, 0.25)); 
+    font-size: 18px;
+    width: 90px;
+    height: 45px;
+}
+
+.h-30 {
+    height: 40px;
+}
+
+.h-40 {
+    height: 40px;
 }
 
 .h-60 {
@@ -85,6 +102,10 @@ p, ul, li {
 
 .h-84 {
     height: 84px;
+}
+
+.w-40 {
+    width:40px;
 }
 
 .w-60 {
@@ -101,6 +122,29 @@ p, ul, li {
 
 .w-144 {
     width: 144px;
+}
+
+.w-150 {
+    width: 150px;
+}
+
+.w-160 {
+    width: 160px;
+}
+.w-172 {
+    width: 172px;
+}
+
+.w-180 {
+    width: 180px;
+}
+
+.w-200 {
+    width: 200px;
+}
+
+.w-256 {
+    width: 256px;
 }
 
 .w-300 {
@@ -149,4 +193,118 @@ p, ul, li {
 
 .centre {
     text-align: center;
+}
+
+@media only screen and (max-width: 1080px) and (min-width: 721px) {
+    .text-container {
+        margin-left: 0%;
+    }
+
+    #welcome {
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .text-container {
+        margin-left: 15%;
+    }
+    h1 {
+        font-size: 45px;
+        margin: 0px;
+    }
+    
+    p, ul, li {
+        font-family: 'Lora';
+        font-size: 24px;
+    }
+
+    #welcome {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        justify-content: center;
+    }
+
+    #triangle {
+        display: block;
+        margin: 0px;
+        width:100%;
+    }
+
+    #blurb {
+        width: 384px;
+    }
+
+    .logo {
+        height: 38px;
+        width: 38px;
+    }
+
+    .btn {
+        font-family: 'Lora';
+        border: 1;
+        border-style:solid;
+        border-radius: 5%;
+        font-size: 15px;
+        width: 75px;
+        height: 38px;
+    }
+
+    #navbar {
+        height: 75px;
+    }
+    
+    #navbar-items {
+        height: 75px;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .text-container {
+        margin-left: 15%;
+    }
+    h1 {
+        font-size: 30px;
+    }
+    
+    p, ul, li {
+        font-size: 16px;
+    }
+
+    #welcome {
+        height: 80%;
+    }
+
+    #blurb {
+        width: 256px;
+    }
+
+    .logo {
+        height: 30px;
+        width: 30px;
+    }
+
+    #logo-container {
+        width: 150px;
+    }
+
+    .btn {
+        font-size: 12px;
+        width: 60px;
+        height: 30px;
+    }
+
+    #website-logo, #burger {
+        width: 40px;
+        height: 40px;
+    }
+
+    #navbar {
+        height: 60px;
+    }
+    
+    #navbar-items {
+        height: 60px;
+    }
 }
