@@ -76,6 +76,8 @@ p, ul, li {
 
 .btn {
     font-family: 'Lora';
+    border: 1;
+    border-style:solid;
     border-radius: 5%;
     font-size: 18px;
     width: 90px;
