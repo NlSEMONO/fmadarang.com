@@ -1,3 +1,5 @@
+const navbar = document.getElementById('#navbar');
+
 function startAnimation() {
     let evtId = null;
     setInterval(transitionImage, 3000); // 20 second refresh timer
@@ -35,3 +37,11 @@ function startAnimation() {
         }
     }
 }
+
+// window.onscroll = () => {}
+
+// function scrollFunction() {
+//     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+//         navbar.style.display = block;
+//     }
+// }
