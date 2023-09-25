@@ -24,6 +24,7 @@ p, ul, li {
     top: 0px;
     background-color: #5E9FD5;
     height: 90px;
+    z-index: 2;
 }
 
 #navbar-items {
@@ -37,6 +38,14 @@ p, ul, li {
 
 #triangle {
     display:none;
+}
+
+#img {
+    position:absolute;
+    width: 500px;
+    height: 400px;
+    right: 10%;
+    z-index: 1;
 }
 
 #welcome {
@@ -76,8 +85,8 @@ p, ul, li {
 
 .btn {
     font-family: 'Lora';
-    border: 1;
-    border-style:solid;
+    border: 0;
+    border-style: none;
     border-radius: 5%;
     font-size: 18px;
     width: 90px;
@@ -195,13 +204,27 @@ p, ul, li {
     text-align: center;
 }
 
-@media only screen and (max-width: 1080px) and (min-width: 721px) {
+@media only screen and (max-width: 1320px) and (min-width: 721px){
+    #img {
+        display: none;
+    }
+
     .text-container {
         margin-left: 0%;
     }
 
     #welcome {
         align-items: center;
+    }
+
+    h1 {
+        font-size: 56px;
+        margin: 0px;
+    }
+    
+    p, ul, li {
+        font-family: 'Lora';
+        font-size: 30px;
     }
 }
 
@@ -257,6 +280,9 @@ p, ul, li {
     
     #navbar-items {
         height: 75px;
+    }
+    #img {
+        display: none;
     }
 }
 
