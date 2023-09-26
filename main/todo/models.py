@@ -16,7 +16,7 @@ class Session(models.Model):
         return f'{self.key}'
 
 class Task(models.Model):
-    user = models.OneToOneField(TodoUser, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey(TodoUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     content = models.CharField(max_length=512)
 
