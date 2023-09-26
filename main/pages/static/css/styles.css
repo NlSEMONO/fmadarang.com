@@ -2,6 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
 
+a {
+    text-decoration: none;
+    color: #A3CDFC;
+}
+
 body {
     font-family: 'Offside', sans-serif;
     color: #A3CDFC; 
@@ -19,12 +24,42 @@ p, ul, li {
     font-size: 24px;
 }
 
+#sidebar p, #navbar-items p {
+    font-family: 'Offside';
+}
+
+#sidebar p {
+    padding-top: 12px;
+}
+
+#sidebar {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    /* top:0; */
+    right:0;
+    height: 100%;
+    width: 30%;
+    text-align:center;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #5E9FD5;
+}
+
 #navbar {
     position: sticky;
     top: 0px;
     background-color: #5E9FD5;
     height: 90px;
     z-index: 2;
+}
+
+#navbar-pages {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 300px;
 }
 
 #navbar-items {
@@ -65,6 +100,11 @@ p, ul, li {
     height: 60px;
 }
 
+#burger {
+    display: none;
+    z-index:5;
+}
+
 .logo {
     height: 45px;
     width: 45px;
@@ -91,89 +131,6 @@ p, ul, li {
     font-size: 18px;
     width: 90px;
     height: 45px;
-}
-
-.h-30 {
-    height: 40px;
-}
-
-.h-40 {
-    height: 40px;
-}
-
-.h-60 {
-    height: 60px;
-}
-
-.h-72 {
-    height: 72px;
-}
-
-.h-84 {
-    height: 84px;
-}
-
-.w-40 {
-    width:40px;
-}
-
-.w-60 {
-    width: 60px;
-}
-
-.w-72 {
-    width: 72px;
-}
-
-.w-84 {
-    width: 84px;
-}
-
-.w-144 {
-    width: 144px;
-}
-
-.w-150 {
-    width: 150px;
-}
-
-.w-160 {
-    width: 160px;
-}
-.w-172 {
-    width: 172px;
-}
-
-.w-180 {
-    width: 180px;
-}
-
-.w-200 {
-    width: 200px;
-}
-
-.w-256 {
-    width: 256px;
-}
-
-.w-300 {
-    width: 300px;
-}
-
-.w-360 {
-    width: 360px;
-}
-
-.w-380 {
-    width: 380px;
-}
-
-.w-456 {
-    width: 456px;
-}
-
-.w-120 {
-    width: 120px;
 }
 
 .contrast {
@@ -282,6 +239,14 @@ p, ul, li {
         height: 75px;
     }
     #img {
+        display: none;
+    }
+
+    #burger {
+        display: block;
+    }
+
+    #navbar-pages {
         display: none;
     }
 }
