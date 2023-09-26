@@ -28,6 +28,11 @@ p, ul, li {
     font-family: 'Offside';
 }
 
+#navbar-items p {
+    color: #c3defc;
+    font-size: 32px;
+}
+
 #sidebar p {
     padding-top: 12px;
 }
@@ -110,17 +115,8 @@ p, ul, li {
     width: 45px;
 }
 
-.item-container {
-    display: flex;
-    justify-content: space-between;
-}
-
 .text-container {
     margin-left: 10%;
-}
-
-.general-container {
-    padding-top: 100px;
 }
 
 .btn {
@@ -141,6 +137,10 @@ p, ul, li {
     background-color: #FFCC86; 
 }
 
+.black {
+    color: #105C9B; 
+}
+
 .main {
     color: #A3CDFC;  
 }
@@ -158,7 +158,49 @@ p, ul, li {
 }
 
 .centre {
+    margin: auto;
     text-align: center;
+    width: 90%;
+}
+
+.general-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.item-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.item-container a {
+    width: 25%;
+    height: 400px;
+    min-width: 450px;
+}    
+
+.item-container img {
+    border-color: #3A78AB; 
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 5%;
+    width: 25%;
+    height: 400px;
+    min-width: 450px;
+    object-fit: cover;
+}
+
+.item-container div {
+    width: 50%;
+    height: 400px;
+    min-width: 450px;
+}
+
+
+.item-container h2 {
+    font-size: 36px;
 }
 
 @media only screen and (max-width: 1320px) and (min-width: 721px){
@@ -249,6 +291,10 @@ p, ul, li {
     #navbar-pages {
         display: none;
     }
+
+    .item-container:not(#logo-container) {
+        justify-content: center;
+    }
 }
 
 @media only screen and (max-width: 540px) {
@@ -260,7 +306,7 @@ p, ul, li {
     }
     
     p, ul, li {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     #welcome {
