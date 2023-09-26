@@ -171,11 +171,16 @@ p, ul, li {
 .item-container {
     display: flex;
     justify-content: space-between;
+}
+
+.item-container:not(#logo-container) {
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 20px;
 }
 
-.item-container a {
+.item-container a:not(#logo-container a) {
     width: 25%;
     height: 400px;
     min-width: 450px;
@@ -198,9 +203,32 @@ p, ul, li {
     min-width: 450px;
 }
 
-
 .item-container h2 {
     font-size: 36px;
+}
+
+#contact ul {
+    list-style-type: none;
+    text-align: left;
+}
+
+#contact li {
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#contact p {
+    font-family: 'Offside';
+    font-size:32px;
+    color: #5696CB;
+    margin-left: 50px;
+}
+
+.big-logo {
+    height: 100px;
+    width: 100px;
 }
 
 @media only screen and (max-width: 1320px) and (min-width: 721px){
@@ -224,6 +252,47 @@ p, ul, li {
     p, ul, li {
         font-family: 'Lora';
         font-size: 30px;
+    }
+}
+
+@media  screen and (max-width: 999px) and (min-width: 721px) {
+    .item-container:not(#logo-container) {
+        justify-content: space-around;
+    }
+
+    .item-container a:not(#logo-container a) {
+        width: 30%;
+        height:300px;
+        min-width: 300px;
+    }    
+
+    .item-container img {
+        border-color: #3A78AB; 
+        border-style: solid;
+        border-width: 4px;
+        border-radius: 5%;
+        width: 30%;
+        height:300px;
+        min-width: 300px;
+        object-fit: cover;
+    }
+
+    .centre {
+        width: 90%;
+    }
+    
+    .item-container div {
+        width: 35%;
+        height: 300px;
+        min-width: 300px;
+    }
+
+    .item-container p {
+        font-size: 20px;
+    }
+    
+    .item-container h2 {
+        font-size: 36px;
     }
 }
 
@@ -302,7 +371,7 @@ p, ul, li {
         margin-left: 15%;
     }
     h1 {
-        font-size: 30px;
+        font-size: 36px;
     }
     
     p, ul, li {
@@ -343,5 +412,55 @@ p, ul, li {
     
     #navbar-items {
         height: 60px;
+    }
+
+    .item-container:not(#logo-container) {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    
+    .item-container a:not(#logo-container a) {
+        width: 25%;
+        height: 300px;
+        min-width: 450px;
+    }    
+    
+    .item-container img {
+        border-color: #3A78AB; 
+        border-style: solid;
+        border-width: 4px;
+        border-radius: 5%;
+        width: 25%;
+        height: 300px;
+        min-width: 300px;
+        object-fit: cover;
+    }
+    
+    .item-container div {
+        width: 50%;
+        height: 300px;
+        min-width: 350px;
+    }
+    
+    .item-container h2 {
+        font-size: 28px;
+    }
+
+    .big-logo {
+        height: 50px;
+        width: 50px;
+    }
+
+    #contact li {
+        margin-bottom: 10px;
+    }
+    
+    #contact p {
+        font-family: 'Offside';
+        font-size:20px;
+        color: #5696CB;
+        margin-left: 15px;
     }
 }
