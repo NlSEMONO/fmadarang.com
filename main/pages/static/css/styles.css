@@ -231,6 +231,11 @@ p, ul, li {
     width: 100px;
 }
 
+li a p {
+    display: inline-block;
+    word-wrap: break-word;
+}
+
 @media only screen and (max-width: 1320px) and (min-width: 721px){
     #img {
         display: none;
@@ -364,11 +369,25 @@ p, ul, li {
     .item-container:not(#logo-container) {
         justify-content: center;
     }
+
+    .big-logo {
+        width: 75px;
+        height: 75px;
+    }
+
+    #contact p {
+        font-size: 24px;
+        margin-left: 24px;
+    }
+
+    #contact ul {
+        padding-left: 16px;
+    }
 }
 
 @media only screen and (max-width: 540px) {
     .text-container {
-        margin-left: 15%;
+        margin-left: 10%;
     }
     h1 {
         font-size: 36px;
@@ -422,9 +441,9 @@ p, ul, li {
     }
     
     .item-container a:not(#logo-container a) {
-        width: 25%;
-        height: 300px;
-        min-width: 450px;
+        width: 100%;
+        height: auto;
+        min-width: 300px;
     }    
     
     .item-container img {
@@ -454,13 +473,25 @@ p, ul, li {
     }
 
     #contact li {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
     
     #contact p {
         font-family: 'Offside';
-        font-size:20px;
+        font-size: 18px;
         color: #5696CB;
         margin-left: 15px;
+    }
+
+    #welcome h1 {
+        max-width: fit-content;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    #blurb ul {
+        padding-left: 12px;
     }
 }
