@@ -1,6 +1,11 @@
 from .models import *
 from decimal import *
 
+ITEMS_FILE = 'items_info'
+STORES_FILE = 'store_info.txt'
+ELEMENT_DELIMITER = ';'
+ELEMENT_DELIMITER2 = ','
+
 # def init_db():
 #     all_inventories = Inventory.objects.all()
 
@@ -27,4 +32,27 @@ from decimal import *
 #         for item in shop.products.all():
 #             str_to_write += f'{item.name},'
 #         f.write(str_to_write+"\n")
-#     f.close()
+# #     f.close()
+
+
+# def print_items_to_file():
+#     f = open('items_info', 'w')
+#     all_items = ProductLister.objects.all()
+#     for item in all_items:
+#         f.write(f'{item.name};{item.price}\n')
+def write_inventories():
+    f = open('inventories', 'w')
+    all_inventories = Inventory.objects.all()
+    for inv in all_inventories:
+        f.write(f'{inv.name}\n')
+
+def load_items_from_file():
+    with open('items_info') as f:
+        for line in f:
+            data = line.split(ELEMENT_DELIMITER)
+            data[1] = int(data[1][:-1])
+            print(data)
+def load_inventories():
+    with open('inventories', 'r') as f:
+        for line in f:
+            print(line[:-1])
