@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
 import json
+import hashlib
+import random
 
 # Create your views here.
 def shop_locations(request):
@@ -68,3 +70,44 @@ def reset_stock(request):
             item.save()
     
     return JsonResponse({'success': True})
+
+
+def generate_id():
+    all_chars = 'abcdefghijklmnopqrstuvwxyz'.split('')
+    all_chars.extend('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
+    all_chars.extend('1234567890'.split(''))
+    while True:
+        str_so_far = ''
+        for _ in range(0, 9):
+            str_so_far += random.choice(all_chars)
+        key = hashlib.sha256(str_so_far.encode('utf-8')).hexdigest()
+        if len(ShoppingCart.objects.filter(hashed_id=key) == 0):
+            return key
+    
+
+def new_session(request):
+    """
+    Creates a new shopping cart session and returns the id of the cart as JSON.
+    """
+    cart = ShoppingCart(hashed_id=generate_id())
+    cart.save()
+    return JsonResponse({'session': cart.hashed_id})
+
+
+def get_session_data(request):
+    """
+    Returns a Shopping Cart's information given a session id as JSON
+    """
+    data = request.body.decode('utf-8')
+    data = json.loads(data)
+    cart = ShoppingCart.objects.filter(hashed_id=data['session'])[0]
+    inv = cart.products
+    
+    items = ProductTracker.objects.filter(inventory=inv)
+    items_so_far = []
+    for item in items:
+        items_so_far.append({
+            'name': item.name,
+            'quantity': item.quantity,
+        })
+    return JsonResponse({'data': items_so_far})

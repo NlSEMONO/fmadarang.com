@@ -78,6 +78,12 @@ class ShopLocation(models.Model):
 class Order(models.Model): 
     """
     Stores information about an online order.
+
+    Attributes: 
+    - hashed_id = unique id for order
+    - orderer = name of person who ordered
+    - products = products ordered
+    - pickup = location to pick up order
     """
     hashed_id = models.CharField(primary_key=True, max_length=64)
     orderer = models.CharField(default="", max_length=128)
@@ -92,3 +98,17 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.orderer}: {self.hashed_id}'
+    
+class ShoppingCart(models.Model):
+    """
+    Stores a user's shopping cart.
+
+    Attributes:
+    - session = session id of cart
+    - products = products in cart
+    """
+    session = models.CharField(default="", max_length=64)
+    products = models.OneToOneField(
+        Inventory,
+        on_delete=models.CASCADE
+    )

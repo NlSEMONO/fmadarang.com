@@ -6,4 +6,6 @@ urlpatterns = [
     path('get-products', views.products_and_locations),
     path('get-stock', views.check_stock),
     path('reset-stock', views.reset_stock),
+    path('new-session', views.new_session),
+    path('get-session-data', views.get_session_data),
 ]
