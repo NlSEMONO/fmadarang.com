@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
+import json
 
 # Create your views here.
 def shop_locations(request):
@@ -40,3 +41,30 @@ def products_and_locations(request):
         })
     
     return JsonResponse(products, safe=False)
+
+def check_stock(request):
+    """"
+    Returns the stock of an item in a given store as JSON.
+    """
+    data = request.body.decode('utf-8')
+    data = json.loads(data)
+
+    shop = ShopLocation.objects.filter(name=data['shop'])[0]
+    inv = shop.inventory
+    item = ProductTracker.objects.filter(name=data['item'], inventory=inv)[0]
+    return JsonResponse({'quantity': item.quantity})
+
+
+def reset_stock(request):
+    """
+    Resets all shop's stock of every item to 30.
+    """
+    shops = ShopLocation.objects.all()
+    for shop in shops:
+        inv = shop.inventory
+        available_prods = ProductTracker.objects.fitler(inventory=inv)
+        for item in available_prods:
+            item.quantity = 30
+            item.save()
+    
+    return JsonResponse({'success': True})

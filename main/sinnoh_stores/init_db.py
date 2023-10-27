@@ -1,3 +1,7 @@
+"""
+FILE FOR INITILIAZING DATABASES BETWEEN DEVELOPMENT AND PRODUCTION
+"""
+
 from .models import *
 from decimal import *
 
@@ -56,3 +60,11 @@ def load_inventories():
     with open('inventories', 'r') as f:
         for line in f:
             print(line[:-1])
+
+def add_items_with_defaults_to_stores():
+    all_stores = ShopLocation.objects.all()
+    for shop in all_stores:
+        inv = shop.inventory
+        for item in shop.products.all():
+            new_prod = ProductTracker(name=item.name, quantity=30, inventory=inv)
+            new_prod.save()
