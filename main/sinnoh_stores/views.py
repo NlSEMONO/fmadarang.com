@@ -48,13 +48,16 @@ def check_stock(request):
     """"
     Returns the stock of an item in a given store as JSON.
     """
-    data = request.body.decode('utf-8')
-    data = request.GET
+    try:
+        data = request.body.decode('utf-8')
+        data = request.GET
 
-    shop = ShopLocation.objects.filter(name=data['shop'])[0]
-    inv = shop.inventory
-    item = ProductTracker.objects.filter(name=data['item'], inventory=inv)[0]
-    return JsonResponse({'quantity': item.quantity})
+        shop = ShopLocation.objects.filter(name=data['shop'])[0]
+        inv = shop.inventory
+        item = ProductTracker.objects.filter(name=data['item'], inventory=inv)[0]
+        return JsonResponse({'quantity': item.quantity})
+    except:
+        return JsonResponse({'quantity': -1})
 
 
 def reset_stock(request):
