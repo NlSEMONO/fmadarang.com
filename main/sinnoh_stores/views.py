@@ -4,6 +4,7 @@ from .models import *
 import json
 import hashlib
 import random
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def shop_locations(request):
@@ -33,7 +34,6 @@ def products_and_locations(request):
         for shop in shops: 
             if (len(shop.products.filter(name=prod.name)) > 0):
                 locations.append(shop.name)
-        print(prod)
         products.append({
             'id': prod.id,
             'name': prod.name,
@@ -43,6 +43,30 @@ def products_and_locations(request):
         })
     
     return JsonResponse(products, safe=False)
+
+@csrf_exempt
+def get_product(request):
+    """
+    Retreives information about a product that is shown to customers (locations, preview images, prices)
+    """
+    data = request.body.decode('utf-8')
+    data = json.loads(data)
+
+    prod = ProductLister.objects.filter(name=data['product'])
+    if len(prod) == 0:
+        return JsonResponse({'success': False})
+    prod = prod[0]
+
+    locations = []
+    all_shops = ShopLocation.objects.all()
+
+    for shop in all_shops:
+        if len(shop.products.filter(name=prod.name)):
+            locations.append(shop.name)
+
+    images = ['/Dream_Poke_Ball_Sprite.png', '/100px-Poke_Ball_RG.png', '/100px-SugimoriPokeBall.png', '/100px-Poké_Ball_VIII.png']
+
+    return JsonResponse({'name': prod.name, 'price': prod.price, 'locations': locations, 'images': images})
 
 def check_stock(request):
     """"
@@ -74,7 +98,6 @@ def reset_stock(request):
     
     return JsonResponse({'success': True})
 
-
 def generate_id():
     all_chars = list('abcdefghijklmnopqrstuvwxyz')
     all_chars.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
@@ -84,26 +107,29 @@ def generate_id():
         for _ in range(0, 9):
             str_so_far += random.choice(all_chars)
         key = hashlib.sha256(str_so_far.encode('utf-8')).hexdigest()
-        if len(ShoppingCart.objects.filter(hashed_id=key) == 0):
+        if len(ShoppingCart.objects.filter(session=key)) == 0:
             return key
     
-
 def new_session(request):
     """
     Creates a new shopping cart session and returns the id of the cart as JSON.
     """
-    cart = ShoppingCart(hashed_id=generate_id())
+    id = generate_id()
+    inv = Inventory(name=id)
+    inv.save()
+
+    cart = ShoppingCart(session=id, products=inv)
     cart.save()
-    return JsonResponse({'session': cart.hashed_id})
+    return JsonResponse({'session': cart.session})
 
-
+@csrf_exempt
 def get_session_data(request):
     """
     Returns a Shopping Cart's information given a session id as JSON
     """
     data = request.body.decode('utf-8')
     data = json.loads(data)
-    cart = ShoppingCart.objects.filter(hashed_id=data['session'])[0]
+    cart = ShoppingCart.objects.filter(session=data['session'])[0]
     inv = cart.products
     
     items = ProductTracker.objects.filter(inventory=inv)
@@ -113,4 +139,32 @@ def get_session_data(request):
             'name': item.name,
             'quantity': item.quantity,
         })
-    return JsonResponse({'data': items_so_far})
+    return JsonResponse(items_so_far, safe=False)
+
+@csrf_exempt
+def add_to_cart(request):
+    """
+    Adds a quantity of an item to a user's cart
+    """
+    data = request.body.decode('utf-8')
+    data = json.loads(data)
+
+    cart = ShoppingCart.objects.filter(session=data['session'])[0]
+    inv = cart.products
+    products_in_cart = ProductTracker.objects.filter(inventory=inv)
+
+    if len(products_in_cart.filter(name=data['name'])) == 0:
+        prod = ProductTracker(name=data['name'], quantity=data['quantity'], inventory=inv)
+        prod.save()
+    else:
+        prod = products_in_cart.get(name=data['name'])
+        prod.quantity += data['quantity']
+        prod.save()
+
+    return JsonResponse({'success': True})
+
+
+def checkout(request):
+    """
+    Finishes a user's cart order.
+    """
