@@ -76,9 +76,9 @@ def reset_stock(request):
 
 
 def generate_id():
-    all_chars = 'abcdefghijklmnopqrstuvwxyz'.split('')
-    all_chars.extend('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
-    all_chars.extend('1234567890'.split(''))
+    all_chars = list('abcdefghijklmnopqrstuvwxyz')
+    all_chars.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+    all_chars.extend(list('1234567890'))
     while True:
         str_so_far = ''
         for _ in range(0, 9):
