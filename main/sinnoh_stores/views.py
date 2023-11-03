@@ -61,7 +61,7 @@ def get_product(request):
     all_shops = ShopLocation.objects.all()
 
     for shop in all_shops:
-        if len(shop.products.filter(name=prod.name)):
+        if len(shop.products.filter(name=prod.name)) > 0:
             locations.append(shop.name)
 
     images = ['/Dream_Poke_Ball_Sprite.png', '/100px-Poke_Ball_RG.png', '/100px-SugimoriPokeBall.png', '/100px-Poké_Ball_VIII.png']
@@ -91,7 +91,7 @@ def reset_stock(request):
     shops = ShopLocation.objects.all()
     for shop in shops:
         inv = shop.inventory
-        available_prods = ProductTracker.objects.fitler(inventory=inv)
+        available_prods = ProductTracker.objects.filter(inventory=inv)
         for item in available_prods:
             item.quantity = 30
             item.save()
@@ -129,7 +129,10 @@ def get_session_data(request):
     """
     data = request.body.decode('utf-8')
     data = json.loads(data)
-    cart = ShoppingCart.objects.filter(session=data['session'])[0]
+    cart = ShoppingCart.objects.filter(session=data['session'])
+    if len(cart) == 0:
+        return JsonResponse([], safe=False)
+    cart = cart[0]
     inv = cart.products
     
     items = ProductTracker.objects.filter(inventory=inv)
@@ -163,8 +166,51 @@ def add_to_cart(request):
 
     return JsonResponse({'success': True})
 
-
+@csrf_exempt
 def checkout(request):
     """
     Finishes a user's cart order.
     """
+    data = request.body.decode('utf-8')
+    data = json.loads(data)
+
+    carts = ShoppingCart.objects.filter(session=data['session'])
+
+    if len(carts) > 0:
+        cart = carts[0]
+        inv = cart.products
+        prods_in_cart = ProductTracker.objects.filter(inventory=inv)
+        if (data['pickup']=='none'): # pick a random shop that has all the items and in stock
+            all_shops = ShopLocation.objects.all()
+        else:                        # try pickup loaction
+            all_shops = ShopLocation.objects.filter(name=data['pickup'])
+
+        for shop in all_shops:       # try all valid shop locations
+            shop_products = ProductTracker.objects.filter(inventory=shop.inventory)
+            valid = True
+            shop_prods: list[ProductTracker] = []
+
+            for prod in prods_in_cart: # see if there is enough stock to get from that store.
+                prod_to_test = shop_products.filter(name=prod.name)
+                if len(prod_to_test) == 0:
+                    valid = False
+                    break
+                elif prod_to_test[0].quantity < prod.quantity:
+                    valid = False
+                    break
+                else:
+                    shop_prods.append(prod_to_test[0])
+            if valid:
+                for prod in shop_prods:
+                    prod.quantity -= prods_in_cart.filter(name=prod.name)[0].quantity
+                    prod.save()
+
+                order = Order(hashed_id=data['session'], products=inv, pickup=shop)
+                order.save()
+                cart.delete()
+
+                return JsonResponse({'success': True, 'id': data['session']})
+                
+        return JsonResponse({'success': False, 'issue': 'out of stock at all target locations'})
+
+    return JsonResponse({'success': False, 'issue': ''})

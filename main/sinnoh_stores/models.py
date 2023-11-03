@@ -105,7 +105,7 @@ class ShoppingCart(models.Model):
 
     Attributes:
     - session = session id of cart
-    - products = products in cart
+    - products = Inventory containing products in cart
     """
     session = models.CharField(default="", max_length=64)
     products = models.OneToOneField(
